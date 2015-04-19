@@ -1,5 +1,5 @@
-
-public class PositionSwitch_2 {
+package inputs;
+public class TwoPositionSwitch {
 	Position position;
 	public Position getPosition() {
 		return position;

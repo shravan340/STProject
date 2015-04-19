@@ -1,4 +1,4 @@
-
+package inputs;
 public class StatusValues {
 	Position value;
 
@@ -9,5 +9,5 @@ public class StatusValues {
 	public void setValue(Position value) {
 		this.value = value;
 	}
-			
+
 }

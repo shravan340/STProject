@@ -14,7 +14,7 @@ public class ComputeSimulationState {
 
 	public static DisplayController computeSimulationState(ComputeSimulationState state){
 		
-//		Take the inpputs and set the DisplayController output variables as follows.
+//		Take the inputs and set the DisplayController output variables as follows.
 		DisplayController pilot=new DisplayController();
 		
 //		Process the input.

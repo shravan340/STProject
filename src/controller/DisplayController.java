@@ -1,5 +1,5 @@
-package Controller;
-import Inputs.Position;
+package controller;
+import inputs.Position;
 public class DisplayController {
 	
 	private int timeUntilLanding;

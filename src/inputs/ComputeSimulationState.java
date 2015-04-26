@@ -18,7 +18,7 @@ public class ComputeSimulationState {
 		DisplayController pilot=new DisplayController();
 		
 //		Process the input.
-		
+		process();
 //		Set output
 //		
 //		pilot.setAirBrakeWarningStatus(airBrakeWarningStatus);
@@ -31,6 +31,11 @@ public class ComputeSimulationState {
 //		pilot.setSpeed(speed);
 //		pilot.setTimeUntilLanding(timeUntilLanding);
 		return pilot;
+	}
+
+	private static void process() {
+		// TODO Auto-generated method stub
+		
 	}
 
 	public int getTimeUntilLanding() {

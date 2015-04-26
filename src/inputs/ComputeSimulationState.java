@@ -42,6 +42,14 @@ public class ComputeSimulationState {
 	}
 
 	public int getSpeed() {
+
+		if (throttleCmd == "+")
+			  speed += 10;
+		else if (throttleCmd == "-")
+		     speed -= 10;
+		else
+		     speed += 0;
+			   
 		return speed;
 	}
 
@@ -50,6 +58,14 @@ public class ComputeSimulationState {
 	}
 
 	public int getAltitude() {
+		
+		if (elevonCmd == "+")
+			  altitude += 20;
+		else if (elevonCmd == "-")
+		     altitude -= 20;
+		else
+		     altitude += 0;
+			   
 		return altitude;
 	}
 

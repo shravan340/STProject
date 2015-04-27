@@ -1,6 +1,5 @@
 package inputs;
 
 public enum Position {
-	Up,
-	Down
+Up,Down
 }

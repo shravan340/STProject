@@ -35,7 +35,7 @@ public class cs extends JFrame {
 	 * Create the frame.
 	 */
 	public cs() {
-		 setDefaultCloseOperation(3);
+		    setDefaultCloseOperation(3);
 		    setBounds(100, 100, 494, 368);
 		    this.contentPane = new JPanel();
 		    this.contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));

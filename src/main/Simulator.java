@@ -7,7 +7,7 @@ public class Simulator {
 	
 	public static void main(String[] args) {
 		
-		ComputeSimulationState computeSimulationState=new ComputeSimulationState();
+		ComputeSimulationState computeSimulationState= new ComputeSimulationState();
 		
 		for(int i=0;i<37;i++){
 			

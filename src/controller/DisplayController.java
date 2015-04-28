@@ -1,69 +1,71 @@
 package controller;
 import inputs.Position;
+
+
 public class DisplayController {
 	
-	private int timeUntilLanding;
-	private int speed;
-	private int altitude;
-	private Position gearPosition;
-	private boolean gearOverrideWarningStatus;
-	private boolean airBrakeWarningStatus;
-	private boolean gearNotDownAlarmStatus;
-	private boolean gearAirSpeedAlarmStatus;
-	private boolean silenceAlarmSetting;
-	
-	public int getTimeUntilLanding() {
+	private static int timeUntilLanding;
+	private static int speed;
+	private static int altitude;
+	private static Position gearPosition;
+	private static boolean gearOverrideWarningStatus;
+	private static boolean airBrakeWarningStatus;
+	private static boolean gearNotDownAlarmStatus;
+	private static boolean gearAirSpeedAlarmStatus;
+	private static boolean silenceAlarmSetting;
+	public static int getTimeUntilLanding() {
 		return timeUntilLanding;
 	}
-	public void setTimeUntilLanding(int timeUntilLanding) {
-		this.timeUntilLanding = timeUntilLanding;
+	public static void setTimeUntilLanding(int timeUntilLanding) {
+		DisplayController.timeUntilLanding = timeUntilLanding;
 	}
-	public int getSpeed() {
+	public static int getSpeed() {
 		return speed;
 	}
-	public void setSpeed(int speed) {
-		this.speed = speed;
+	public static void setSpeed(int speed) {
+		DisplayController.speed = speed;
 	}
-	public int getAltitude() {
+	public static int getAltitude() {
 		return altitude;
 	}
-	public void setAltitude(int altitude) {
-		this.altitude = altitude;
+	public static void setAltitude(int altitude) {
+		DisplayController.altitude = altitude;
 	}
-	public Position getGearPosition() {
+	public static Position getGearPosition() {
 		return gearPosition;
 	}
-	public void setGearPosition(Position gearPosition) {
-		this.gearPosition = gearPosition;
+	public static void setGearPosition(Position gearPosition) {
+		DisplayController.gearPosition = gearPosition;
 	}
-	public boolean isGearOverrideWarningStatus() {
+	public static boolean isGearOverrideWarningStatus() {
 		return gearOverrideWarningStatus;
 	}
-	public void setGearOverrideWarningStatus(boolean gearOverrideWarningStatus) {
-		this.gearOverrideWarningStatus = gearOverrideWarningStatus;
+	public static void setGearOverrideWarningStatus(
+			boolean gearOverrideWarningStatus) {
+		DisplayController.gearOverrideWarningStatus = gearOverrideWarningStatus;
 	}
-	public boolean isAirBrakeWarningStatus() {
+	public static boolean isAirBrakeWarningStatus() {
 		return airBrakeWarningStatus;
 	}
-	public void setAirBrakeWarningStatus(boolean airBrakeWarningStatus) {
-		this.airBrakeWarningStatus = airBrakeWarningStatus;
+	public static void setAirBrakeWarningStatus(boolean airBrakeWarningStatus) {
+		DisplayController.airBrakeWarningStatus = airBrakeWarningStatus;
 	}
-	public boolean isGearNotDownAlarmStatus() {
+	public static boolean isGearNotDownAlarmStatus() {
 		return gearNotDownAlarmStatus;
 	}
-	public void setGearNotDownAlarmStatus(boolean gearNotDownAlarmStatus) {
-		this.gearNotDownAlarmStatus = gearNotDownAlarmStatus;
+	public static void setGearNotDownAlarmStatus(boolean gearNotDownAlarmStatus) {
+		DisplayController.gearNotDownAlarmStatus = gearNotDownAlarmStatus;
 	}
-	public boolean isGearAirSpeedAlarmStatus() {
+	public static boolean isGearAirSpeedAlarmStatus() {
 		return gearAirSpeedAlarmStatus;
 	}
-	public void setGearAirSpeedAlarmStatus(boolean gearAirSpeedAlarmStatus) {
-		this.gearAirSpeedAlarmStatus = gearAirSpeedAlarmStatus;
+	public static void setGearAirSpeedAlarmStatus(boolean gearAirSpeedAlarmStatus) {
+		DisplayController.gearAirSpeedAlarmStatus = gearAirSpeedAlarmStatus;
 	}
-	public boolean isSilenceAlarmSetting() {
+	public static boolean isSilenceAlarmSetting() {
 		return silenceAlarmSetting;
 	}
-	public void setSilenceAlarmSetting(boolean silenceAlarmSetting) {
-		this.silenceAlarmSetting = silenceAlarmSetting;
+	public static void setSilenceAlarmSetting(boolean silenceAlarmSetting) {
+		DisplayController.silenceAlarmSetting = silenceAlarmSetting;
 	}
 }

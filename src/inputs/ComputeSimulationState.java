@@ -1,6 +1,5 @@
 package inputs;
 
-import main.Simulator;
 import controller.DisplayController;
 public class ComputeSimulationState {
 	
@@ -13,10 +12,10 @@ public class ComputeSimulationState {
 	private static Position selectedGearPosition;
 	private static String throttleCmd;
 	private static String elevonCmd;
-	private static boolean airBrakeWarningOn; 
-	private static boolean gearOverrideWarningOn; 
-	private static boolean gearNotDownAlarmOn;
-	private static boolean gearAirSpeedAlarmOn;
+	private static boolean airBrakeWarningStatus; 
+	private static boolean gearOverrideWarningStatus; 
+	private static boolean gearNotDownAlarmStatus;
+	private static boolean gearAirSpeedAlarmStatus;
 
 public static DisplayController computeSimulationState(){
 		
@@ -26,11 +25,11 @@ public static DisplayController computeSimulationState(){
 		DisplayController pilot = new DisplayController();
 			
 //		Set output
-		DisplayController.setAirBrakeWarningStatus(airBrakeWarningOn);
+		DisplayController.setAirBrakeWarningStatus(airBrakeWarningStatus);
 		DisplayController.setAltitude(altitude);
-		DisplayController.setGearAirSpeedAlarmStatus(gearAirSpeedAlarmOn);
-		DisplayController.setGearNotDownAlarmStatus(gearNotDownAlarmOn);
-		DisplayController.setGearOverrideWarningStatus(gearOverrideWarningOn);
+		DisplayController.setGearAirSpeedAlarmStatus(gearAirSpeedAlarmStatus);
+		DisplayController.setGearNotDownAlarmStatus(gearNotDownAlarmStatus);
+		DisplayController.setGearOverrideWarningStatus(gearOverrideWarningStatus);
 //		DisplayController.setSilenceAlarmSetting(silenceAlarmSetting);
 		DisplayController.setSpeed(speed);
 		DisplayController.setTimeUntilLanding(timeUntilLanding);
@@ -58,14 +57,14 @@ public static DisplayController computeSimulationState(){
 			  else
 			     altitudeIncrement=0;
 			   }
-			if (!gearOverrideWarningOn)
+			if (!gearOverrideWarningStatus)
 			    //gearPosition = selectedGearPosition;
 			speed -= speedIncrement;
 			altitude = (altitude-altitudeIncrement);
-			airBrakeWarningOn = (speed >= 250) && (timeUntilLanding < 60);
-			gearOverrideWarningOn = (gearPosition == Position.Down) && (speed>400);
-			gearNotDownAlarmOn = (gearPosition == Position.Up) && ((timeUntilLanding <=120) || (altitude <1000));
-			gearAirSpeedAlarmOn = (gearPosition== Position.Down ) && (speed>300);
+			airBrakeWarningStatus = (speed >= 250) && (timeUntilLanding < 60);
+			gearOverrideWarningStatus = (gearPosition == Position.Down) && (speed>400);
+			gearNotDownAlarmStatus = (gearPosition == Position.Up) && ((timeUntilLanding <=120) || (altitude <1000));
+			gearAirSpeedAlarmStatus = (gearPosition== Position.Down ) && (speed>300);
 	}
 
 	public static int getTimeUntilLanding() {
@@ -139,37 +138,36 @@ public static DisplayController computeSimulationState(){
 	public static void setElevonCmd(String elevonCmd) {
 		ComputeSimulationState.elevonCmd = elevonCmd;
 	}
-
-	public static boolean isAirBrakeWarningOn() {
-		return airBrakeWarningOn;
+	public static boolean isAirBrakeWarningStatus() {
+		return airBrakeWarningStatus;
 	}
 
-	public static void setAirBrakeWarningOn(boolean airBrakeWarningOn) {
-		ComputeSimulationState.airBrakeWarningOn = airBrakeWarningOn;
+	public static void setAirBrakeWarningStatus(boolean airBrakeWarningStatus) {
+		ComputeSimulationState.airBrakeWarningStatus = airBrakeWarningStatus;
 	}
 
-	public static boolean isGearOverrideWarningOn() {
-		return gearOverrideWarningOn;
+	public static boolean isGearOverrideWarningStatus() {
+		return gearOverrideWarningStatus;
 	}
 
-	public static void setGearOverrideWarningOn(boolean gearOverrideWarningOn) {
-		ComputeSimulationState.gearOverrideWarningOn = gearOverrideWarningOn;
+	public static void setGearOverrideWarningStatus(
+			boolean gearOverrideWarningStatus) {
+		ComputeSimulationState.gearOverrideWarningStatus = gearOverrideWarningStatus;
 	}
 
-	public static boolean isGearNotDownAlarmOn() {
-		return gearNotDownAlarmOn;
+	public static boolean isGearNotDownAlarmStatus() {
+		return gearNotDownAlarmStatus;
 	}
 
-	public static void setGearNotDownAlarmOn(boolean gearNotDownAlarmOn) {
-		ComputeSimulationState.gearNotDownAlarmOn = gearNotDownAlarmOn;
+	public static void setGearNotDownAlarmStatus(boolean gearNotDownAlarmStatus) {
+		ComputeSimulationState.gearNotDownAlarmStatus = gearNotDownAlarmStatus;
 	}
 
-	public static boolean isGearAirSpeedAlarmOn() {
-		return gearAirSpeedAlarmOn;
+	public static boolean isGearAirSpeedAlarmStatus() {
+		return gearAirSpeedAlarmStatus;
 	}
 
-	public static void setGearAirSpeedAlarmOn(boolean gearAirSpeedAlarmOn) {
-		ComputeSimulationState.gearAirSpeedAlarmOn = gearAirSpeedAlarmOn;
+	public static void setGearAirSpeedAlarmStatus(boolean gearAirSpeedAlarmStatus) {
+		ComputeSimulationState.gearAirSpeedAlarmStatus = gearAirSpeedAlarmStatus;
 	}
-	
 }

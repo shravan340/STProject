@@ -25,7 +25,7 @@ public class DisplayController extends JFrame {
 	private static boolean gearNotDownAlarmStatus;
 	private static boolean gearAirSpeedAlarmStatus;
 	private static boolean silenceAlarmSetting;
-	static JLabel lbUAltitude;
+	 static JLabel lbUAltitude;
 	static JLabel lbUSpeed;
 	static JLabel lbUUp;
 	static JLabel lbUDown;
@@ -38,10 +38,10 @@ public class DisplayController extends JFrame {
 	static JLabel lbGearNotDown;
 	static JLabel lbBrakingOverride;
 	
-	static{
+	void run(){
 		DisplayController frame = new DisplayController();
 		frame.setVisible(true); 
-			}
+		}
 	public DisplayController() {
         
 		setTitle("Pilot Display Scenario:");

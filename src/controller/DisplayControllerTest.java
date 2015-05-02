@@ -48,6 +48,7 @@ public class DisplayControllerTest {
 	@Test
 	public void test() {
 		DisplayController pilot = new DisplayController();
+		pilot.run();
 		String[][] inputs = new String[][]{
 				{"401","true","1000","59"},
 				{"401","false","1000","59"},
@@ -62,12 +63,11 @@ public class DisplayControllerTest {
 		      speed = Integer.parseInt(inputs[i][0]); 
 		      altitude = Integer.parseInt(inputs[i][2]);
 		      timeUntilLanding = Integer.parseInt(inputs[i][3]);
-		      if(inputs[i][1].equals("Y"))
+		      if(inputs[i][1].equals("true"))
 					inputs[i][1] = "Down";
 				else
 					inputs[i][1] = "Up";
 		      gearPosition = Position.valueOf(inputs[i][1]);
-		      
 		      ComputeSimulationState.setAltitude(altitude);
 				//ComputeSimulationState.setElevonCmd(elevonCmd);
 				ComputeSimulationState.setGearPosition(gearPosition);
@@ -76,9 +76,9 @@ public class DisplayControllerTest {
 				//ComputeSimulationState.setThrottleCmd(throttleCmd);
 				ComputeSimulationState.setTimeUntilLanding(timeUntilLanding);
 				ComputeSimulationState.process();		      
-		      System.out.println("Hi"+ComputeSimulationState.getAltitude());
-				DisplayController.lbUAltitude.setText(String.valueOf(ComputeSimulationState.getAltitude()));
+		        DisplayController.lbUAltitude.setText(String.valueOf(ComputeSimulationState.getAltitude()));
 				DisplayController.lbUSpeed.setText(String.valueOf(ComputeSimulationState.getSpeed()));
+				System.out.println(""+ComputeSimulationState.getGearPosition());
 				if(String.valueOf(ComputeSimulationState.getGearPosition()).equals("Up"))
 					{
 					DisplayController.lbUDown.setText("");	
@@ -113,8 +113,7 @@ public class DisplayControllerTest {
 				} catch (InterruptedException e) {
 					e.printStackTrace();
 				}
-	   // pilot.framestart();
-	}
+	   	}
 	}
 
 }

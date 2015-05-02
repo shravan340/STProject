@@ -92,19 +92,19 @@ public class DisplayControllerTest {
 //				}Simulator.lbUAirResistance.setText(String.valueOf(DisplayController.getAltitude()));
 //				Simulator.lbUAltitudeLoss.setText(String.valueOf(DisplayController.getAltitude()));
 				DisplayController.lbULandingTimeCountDown.setText(String.valueOf(ComputeSimulationState.getTimeUntilLanding()));
-				if(ComputeSimulationState.isGearOverrideWarningStatus())
+				if(ComputeSimulationState.isGearOverrideWarningOn())
 					DisplayController.lbLandingGearOverride.setForeground(Color.RED);
 				else
 					DisplayController.lbLandingGearOverride.setForeground(Color.black);
-				if(ComputeSimulationState.isAirBrakeWarningStatus())
+				if(ComputeSimulationState.isAirBrakeWarningOn())
 					DisplayController.lbBrakingOverride.setForeground(Color.RED);
 				else
 					DisplayController.lbBrakingOverride.setForeground(Color.black);
-				if(ComputeSimulationState.isGearNotDownAlarmStatus())
+				if(ComputeSimulationState.isGearNotDownAlarmOn())
 					DisplayController.lbGearNotDown.setForeground(Color.RED);
 				else
 					DisplayController.lbGearNotDown.setForeground(Color.black);
-				if(ComputeSimulationState.isGearAirSpeedAlarmStatus())
+				if(ComputeSimulationState.isGearAirSpeedAlarmOn())
 					DisplayController.lbGearAirSpeed.setForeground(Color.RED);
 				else
 					DisplayController.lbGearAirSpeed.setForeground(Color.black);

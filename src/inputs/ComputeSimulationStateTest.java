@@ -49,7 +49,7 @@ public class ComputeSimulationStateTest {
 
 	@Test
 	public void test() {
-		String csvFile = "/Users/Munna/Desktop/1.csv";
+		String csvFile = "/Users/Munna/git/STProject1/src/1.csv";
 		BufferedReader br = null;
 		String line = "";
 		String cvsSplitBy = ",";

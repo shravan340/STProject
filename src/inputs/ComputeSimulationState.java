@@ -1,8 +1,15 @@
 package inputs;
 
+import static org.junit.Assert.assertEquals;
+
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+
 import controller.DisplayController;
 public class ComputeSimulationState {
-	
+
 	private static int timeUntilLanding;
 	private static int speed;
 	private static int speedIncrement;
@@ -17,56 +24,81 @@ public class ComputeSimulationState {
 	private static boolean gearNotDownAlarmOn;
 	private static boolean gearAirSpeedAlarmOn;
 
-public static DisplayController computeSimulationState(){
-		
-		process();
-			
-//		Take the inputs and set the DisplayController output variables as follows.
-		DisplayController pilot = new DisplayController();
-			
-//		Set output
-		DisplayController.setAirBrakeWarningStatus(airBrakeWarningOn);
-		DisplayController.setAltitude(altitude);
-		DisplayController.setGearAirSpeedAlarmStatus(gearAirSpeedAlarmOn);
-		DisplayController.setGearNotDownAlarmStatus(gearNotDownAlarmOn);
-		DisplayController.setGearOverrideWarningStatus(gearOverrideWarningOn);
-//		DisplayController.setSilenceAlarmSetting(silenceAlarmSetting);
-		DisplayController.setSpeed(speed);
-		DisplayController.setTimeUntilLanding(timeUntilLanding);
-		DisplayController.setGearPosition(gearPosition);
-			 
-		return pilot;
-		}
-		
-	public static void process(){
+	public static void computeSimulationState(){
 		if (throttleCmd == "+")
-			  speedIncrement =+ 10;
+			speedIncrement =+ 10;
+		else
+		{
+			if (throttleCmd== "-")
+				speedIncrement =- 10;
 			else
-			  {
-			  if (throttleCmd== "-")
-			     speedIncrement =- 10;
-			  else
-			     speedIncrement = 0;
-			   }
-			if (elevonCmd== "+")
-			  altitudeIncrement=20;
+				speedIncrement = 0;
+		}
+		if (elevonCmd== "+")
+			altitudeIncrement=20;
+		else
+		{
+			if (elevonCmd =="-")
+				altitudeIncrement=-20;
 			else
-			  {
-			  if (elevonCmd =="-")
-			     altitudeIncrement=-20;
-			  else
-			     altitudeIncrement=0;
-			   }
-			if (!gearOverrideWarningOn)
-			    //gearPosition = selectedGearPosition;
+				altitudeIncrement=0;
+		}
+		if (!gearOverrideWarningOn)
+			//gearPosition = selectedGearPosition;
 			speed -= speedIncrement;
-			altitude = (altitude-altitudeIncrement);
-			airBrakeWarningOn = (speed >= 250) && (timeUntilLanding < 60);
-			gearOverrideWarningOn = (gearPosition == Position.Down) && (speed>400);
-			gearNotDownAlarmOn = (gearPosition == Position.Up) && ((timeUntilLanding <=120) || (altitude <1000));
-			gearAirSpeedAlarmOn = (gearPosition== Position.Down ) && (speed>300);
+		altitude = (altitude-altitudeIncrement);
+		airBrakeWarningOn = (speed >= 250) && (timeUntilLanding < 60);
+		gearOverrideWarningOn = (gearPosition == Position.Down) && (speed>400);
+		gearNotDownAlarmOn = (gearPosition == Position.Up) && ((timeUntilLanding <=120) || (altitude <1000));
+		gearAirSpeedAlarmOn = (gearPosition== Position.Down ) && (speed>300);
 	}
 
+	public static void main(String[] args) {
+		String csvFile = "1.csv";
+		BufferedReader br = null;
+		String line = "";
+		String cvsSplitBy = ",";
+		try {
+			br = new BufferedReader(new FileReader(csvFile));
+			line = br.readLine();
+			while ((line = br.readLine()) != null) {
+				// use comma as separator
+				String[] inputs = line.split(cvsSplitBy);
+
+				speed = Integer.parseInt(inputs[0]);
+				if(inputs[1].equals("Y"))
+					inputs[1] = "Down";
+				else
+					inputs[1] = "Up";
+				gearPosition = Position.valueOf(inputs[1]);
+				altitude = Integer.parseInt(inputs[2]);
+				timeUntilLanding = Integer.parseInt(inputs[3]);
+				ComputeSimulationState.setAltitude(altitude);
+				ComputeSimulationState.setSpeed(speed);
+				ComputeSimulationState.setTimeUntilLanding(timeUntilLanding);
+				ComputeSimulationState.setGearPosition(gearPosition);
+				ComputeSimulationState.computeSimulationState();
+				airBrakeWarningOn = ComputeSimulationState.isAirBrakeWarningOn(); 
+				gearOverrideWarningOn = ComputeSimulationState.isGearOverrideWarningOn();
+				gearNotDownAlarmOn = ComputeSimulationState.isGearNotDownAlarmOn();
+				gearAirSpeedAlarmOn = ComputeSimulationState.isGearAirSpeedAlarmOn();
+				System.out.println(""+gearNotDownAlarmOn+gearAirSpeedAlarmOn+airBrakeWarningOn+gearOverrideWarningOn);
+			}
+			
+		}
+		catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e1) {
+			e1.printStackTrace();
+		} 
+		if (br != null) {
+			try {
+				br.close();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+	}
 	public static int getTimeUntilLanding() {
 		return timeUntilLanding;
 	}

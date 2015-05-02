@@ -11,8 +11,6 @@ import inputs.Position;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import main.Simulator;
-
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -75,7 +73,7 @@ public class DisplayControllerTest {
 				ComputeSimulationState.setSpeed(speed);
 				//ComputeSimulationState.setThrottleCmd(throttleCmd);
 				ComputeSimulationState.setTimeUntilLanding(timeUntilLanding);
-				ComputeSimulationState.process();		      
+				ComputeSimulationState.computeSimulationState();		      
 		        DisplayController.lbUAltitude.setText(String.valueOf(ComputeSimulationState.getAltitude()));
 				DisplayController.lbUSpeed.setText(String.valueOf(ComputeSimulationState.getSpeed()));
 				System.out.println(""+ComputeSimulationState.getGearPosition());

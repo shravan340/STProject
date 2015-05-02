@@ -1,13 +1,9 @@
 package inputs;
 
-import static org.junit.Assert.assertEquals;
-
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-
-import controller.DisplayController;
 public class ComputeSimulationState {
 
 	private static int timeUntilLanding;
@@ -23,34 +19,35 @@ public class ComputeSimulationState {
 	private static boolean gearOverrideWarningOn; 
 	private static boolean gearNotDownAlarmOn;
 	private static boolean gearAirSpeedAlarmOn;
-
-	public static void computeSimulationState(){
+	private static int pass=0;
+	private static int fail=0;
+	private static int i=1;
+	
+	public static void computeSimulationState(int altitude,int speed,int timeUntilLanding,Position gearPosition,String throttleCmd,String elevonCmd){
 		if (throttleCmd == "+")
-			speedIncrement =+ 10;
+			ComputeSimulationState.speed=speed+10;
 		else
 		{
 			if (throttleCmd== "-")
-				speedIncrement =- 10;
+				ComputeSimulationState.speed=speed-10;
 			else
-				speedIncrement = 0;
+				ComputeSimulationState.speed = speed;
 		}
 		if (elevonCmd== "+")
-			altitudeIncrement=20;
+			ComputeSimulationState.altitude=altitude+20;
 		else
 		{
 			if (elevonCmd =="-")
-				altitudeIncrement=-20;
+				ComputeSimulationState.altitude=altitude-20;
 			else
-				altitudeIncrement=0;
+				ComputeSimulationState.altitude=altitude;
 		}
-		if (!gearOverrideWarningOn)
-			//gearPosition = selectedGearPosition;
-			speed -= speedIncrement;
-		altitude = (altitude-altitudeIncrement);
-		airBrakeWarningOn = (speed >= 250) && (timeUntilLanding < 60);
-		gearOverrideWarningOn = (gearPosition == Position.Down) && (speed>400);
-		gearNotDownAlarmOn = (gearPosition == Position.Up) && ((timeUntilLanding <=120) || (altitude <1000));
-		gearAirSpeedAlarmOn = (gearPosition== Position.Down ) && (speed>300);
+		ComputeSimulationState.airBrakeWarningOn = (ComputeSimulationState.speed >= 250) && (timeUntilLanding < 60);
+		ComputeSimulationState.gearOverrideWarningOn = (gearPosition == Position.Down) && (ComputeSimulationState.speed>400);
+		ComputeSimulationState.gearNotDownAlarmOn = (gearPosition == Position.Up) && ((timeUntilLanding <=120) || (ComputeSimulationState.altitude <1000));
+		ComputeSimulationState.gearAirSpeedAlarmOn = (gearPosition== Position.Down ) && (ComputeSimulationState.speed>300);
+		//		if (!gearOverrideWarningOn)
+		//gearPosition = selectedGearPosition;
 	}
 
 	public static void main(String[] args) {
@@ -73,24 +70,33 @@ public class ComputeSimulationState {
 				gearPosition = Position.valueOf(inputs[1]);
 				altitude = Integer.parseInt(inputs[2]);
 				timeUntilLanding = Integer.parseInt(inputs[3]);
-				ComputeSimulationState.setAltitude(altitude);
-				ComputeSimulationState.setSpeed(speed);
-				ComputeSimulationState.setTimeUntilLanding(timeUntilLanding);
-				ComputeSimulationState.setGearPosition(gearPosition);
-				ComputeSimulationState.computeSimulationState();
+				ComputeSimulationState.computeSimulationState(altitude, speed, timeUntilLanding, gearPosition,null,null);
 				airBrakeWarningOn = ComputeSimulationState.isAirBrakeWarningOn(); 
 				gearOverrideWarningOn = ComputeSimulationState.isGearOverrideWarningOn();
 				gearNotDownAlarmOn = ComputeSimulationState.isGearNotDownAlarmOn();
 				gearAirSpeedAlarmOn = ComputeSimulationState.isGearAirSpeedAlarmOn();
 				System.out.println(""+gearNotDownAlarmOn+gearAirSpeedAlarmOn+airBrakeWarningOn+gearOverrideWarningOn);
+				if(gearNotDownAlarmOn == Boolean.valueOf(inputs[4]) && gearAirSpeedAlarmOn == Boolean.valueOf(inputs[5]) && 
+						airBrakeWarningOn == Boolean.valueOf(inputs[6]) && gearOverrideWarningOn == Boolean.valueOf(inputs[7]))
+				{
+					pass++;
+					System.out.println("Test Case No: "+i+" passed.");
+				}
+				else
+				{
+					fail++;
+					System.out.println("Test Case No: "+i+" failed.");
+				}
+				i++;
 			}
-			
 		}
 		catch (FileNotFoundException e) {
 			e.printStackTrace();
 		} catch (IOException e1) {
 			e1.printStackTrace();
 		} 
+		System.out.println("Total No. of Test Cases passed: "+pass+" and failed: "+fail+".");
+
 		if (br != null) {
 			try {
 				br.close();

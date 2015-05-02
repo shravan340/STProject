@@ -73,7 +73,7 @@ public class DisplayControllerTest {
 				ComputeSimulationState.setSpeed(speed);
 				//ComputeSimulationState.setThrottleCmd(throttleCmd);
 				ComputeSimulationState.setTimeUntilLanding(timeUntilLanding);
-				ComputeSimulationState.computeSimulationState();		      
+				ComputeSimulationState.computeSimulationState(altitude, speed, timeUntilLanding, gearPosition, null, null);		      
 		        DisplayController.lbUAltitude.setText(String.valueOf(ComputeSimulationState.getAltitude()));
 				DisplayController.lbUSpeed.setText(String.valueOf(ComputeSimulationState.getSpeed()));
 				System.out.println(""+ComputeSimulationState.getGearPosition());

@@ -23,7 +23,8 @@ public class ComputeSimulationState {
 	private static int fail=0;
 	private static int i=1;
 	
-	public static void computeSimulationState(int altitude,int speed,int timeUntilLanding,Position gearPosition,String throttleCmd,String elevonCmd){
+	public static void computeSimulationState(int altitude,int speed,int timeUntilLanding,
+			Position currentGearPosition,String throttleCmd,String elevonCmd){
 		if (throttleCmd == "+")
 			ComputeSimulationState.speed=speed+10;
 		else
@@ -43,13 +44,12 @@ public class ComputeSimulationState {
 				ComputeSimulationState.altitude=altitude;
 		}
 		ComputeSimulationState.airBrakeWarningOn = (ComputeSimulationState.speed >= 250) && (timeUntilLanding < 60);
-		ComputeSimulationState.gearOverrideWarningOn = (gearPosition == Position.Down) && (ComputeSimulationState.speed>400);
-		ComputeSimulationState.gearNotDownAlarmOn = (gearPosition == Position.Up) && ((timeUntilLanding <=120) || (ComputeSimulationState.altitude <1000));
-		ComputeSimulationState.gearAirSpeedAlarmOn = (gearPosition== Position.Down ) && (ComputeSimulationState.speed>300);
-		//		if (!gearOverrideWarningOn)
-		//gearPosition = selectedGearPosition;
+		ComputeSimulationState.gearOverrideWarningOn = (currentGearPosition == Position.Down) && (ComputeSimulationState.speed>400);
+		ComputeSimulationState.gearNotDownAlarmOn = (currentGearPosition == Position.Up) && ((timeUntilLanding <=120) || (ComputeSimulationState.altitude <1000));
+		ComputeSimulationState.gearAirSpeedAlarmOn = (currentGearPosition== Position.Down ) && (ComputeSimulationState.speed>300);
+		if (!gearOverrideWarningOn)
+		currentGearPosition = selectedGearPosition;
 	}
-
 	public static void main(String[] args) {
 		String csvFile = "1.csv";
 		BufferedReader br = null;

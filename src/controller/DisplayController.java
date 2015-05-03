@@ -47,7 +47,50 @@ public class DisplayController extends JFrame {
 		}
 	public static void main(String[] args) {
 		DisplayController frame = new DisplayController();
-		frame.setVisible(true); 
+		frame.setVisible(true);
+		while(true){
+			int timeUntillLanding = Integer.parseInt(lbULandingTimeCountDown.getText())-1;
+			int speedUntillLanding = Integer.parseInt(lbUSpeed.getText())-5;
+			int altitudeUntillLanding = Integer.parseInt(lbUAltitude.getText())-20;
+			
+			if(timeUntillLanding <= 0 || speedUntillLanding <= 0|| altitudeUntillLanding <= 0 )
+			{
+				lbULandingTimeCountDown.setText("Landed");
+				lbULandingTimeCountDown.setForeground(Color.GREEN);
+				break;	
+			}
+			else
+		      {
+			  lbULandingTimeCountDown.setText(String.valueOf(timeUntillLanding));
+		      lbUSpeed.setText(String.valueOf(speedUntillLanding));
+		      lbUAltitude.setText(String.valueOf(altitudeUntillLanding));
+		      frame.setWarningLabels();
+		      }
+		      if(timeUntillLanding > 0 && (speedUntillLanding <=5 ||altitudeUntillLanding <=20 ))
+		      {
+		    	    lbULandingTimeCountDown.setText("Failed");
+					lbULandingTimeCountDown.setForeground(Color.RED);
+					break;
+		      }
+		  	if (ComputeSimulationState.isGearOverrideWarningOn())
+		  	{
+		  		ComputeSimulationState.setGearPosition(Position.Up);
+		  		lbUUp.setText(String.valueOf(ComputeSimulationState.getGearPosition()));
+		  		lbUDown.setText(String.valueOf(""));
+		  	}
+			if (ComputeSimulationState.isAirBrakeWarningOn())
+				  ComputeSimulationState.setSpeed(speedUntillLanding - 10);
+/**			 if(ComputeSimulationState.isGearNotDownAlarmOn() &&ComputeSimulationState.getGearPosition() == Position.Down )
+				{
+					ComputeSimulationState.setGearNotDownAlarmOn(false);
+					
+				}
+	**/	       
+		try {
+			Thread.sleep(1000);
+		} catch (InterruptedException e) {
+			e.printStackTrace();}
+		}
 	}
 	
 	public DisplayController() {
@@ -78,7 +121,7 @@ public class DisplayController extends JFrame {
 		lbUSpeed.setBounds(120, 59, 58, 14);
 		this.contentPane.add(lbUSpeed);
 
-	    lbUAltitude = new JLabel("2000");                                    
+	    lbUAltitude = new JLabel("1050");                                    
 		lbUAltitude.setBounds(120, 116, 58, 14);
 		this.contentPane.add(lbUAltitude);
 
@@ -94,7 +137,7 @@ public class DisplayController extends JFrame {
 		lbLandingTime.setBounds(270, 163, 91, 14);
 		this.contentPane.add(lbLandingTime);
 		
-		lbULandingTimeCountDown = new JLabel("60");
+		lbULandingTimeCountDown = new JLabel("140");
 		lbULandingTimeCountDown.setBounds(378, 170, 63, 14);
 		this.contentPane.add(lbULandingTimeCountDown);
 		
@@ -126,6 +169,11 @@ public class DisplayController extends JFrame {
 		btDecreaseSpeed.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				Position currentGearPosition=(lbUUp.getText()!="")?Position.valueOf(lbUUp.getText()):Position.valueOf(lbUDown.getText());
+				ComputeSimulationState.computeSimulationState(Integer.parseInt(lbUAltitude.getText()), Integer.parseInt(lbUSpeed.getText()), Integer.parseInt(lbULandingTimeCountDown.getText()),
+						currentGearPosition, "-", null);
+				lbUSpeed.setText(String.valueOf(ComputeSimulationState.getSpeed()));
+				setWarningLabels();
 			}
 		});
 
@@ -135,6 +183,11 @@ public class DisplayController extends JFrame {
 		btIncreaseAltitude.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				Position currentGearPosition=(lbUUp.getText()!="")?Position.valueOf(lbUUp.getText()):Position.valueOf(lbUDown.getText());
+				ComputeSimulationState.computeSimulationState(Integer.parseInt(lbUAltitude.getText()), Integer.parseInt(lbUSpeed.getText()), Integer.parseInt(lbULandingTimeCountDown.getText()),
+						currentGearPosition, null,"+");
+				lbUAltitude.setText(String.valueOf(ComputeSimulationState.getAltitude()));
+				setWarningLabels();
 			}
 		});
 		JButton btDecreaseAltitude = new JButton("-");
@@ -143,17 +196,46 @@ public class DisplayController extends JFrame {
 		btDecreaseAltitude.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				Position currentGearPosition=(lbUUp.getText()!="")?Position.valueOf(lbUUp.getText()):Position.valueOf(lbUDown.getText());
+				ComputeSimulationState.computeSimulationState(Integer.parseInt(lbUAltitude.getText()), Integer.parseInt(lbUSpeed.getText()), Integer.parseInt(lbULandingTimeCountDown.getText()),
+						currentGearPosition, null,"-");
+				lbUAltitude.setText(String.valueOf(ComputeSimulationState.getAltitude()));
+				setWarningLabels();
 			}
 		});
 
-		JButton btnUp = new JButton("Up");
-		btnUp.setBounds(177, 152, 74, 23);
-		this.contentPane.add(btnUp);
-
+		JButton btUp = new JButton("Up");
+		btUp.setBounds(177, 152, 74, 23);
+		this.contentPane.add(btUp);
+		btUp.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				Position currentGearPosition=(lbUUp.getText()!="")?Position.valueOf(lbUUp.getText()):Position.valueOf(lbUDown.getText());
+				ComputeSimulationState.computeSimulationState(Integer.parseInt(lbUAltitude.getText()), Integer.parseInt(lbUSpeed.getText()), Integer.parseInt(lbULandingTimeCountDown.getText()),
+						currentGearPosition, null,null);
+				ComputeSimulationState.setSelectedGearPosition(Position.Up);
+				lbUDown.setText("");
+				lbUUp.setText(String.valueOf(ComputeSimulationState.getSelectedGearPosition()));
+				setWarningLabels();
+			}
+		});
+		
 		JButton btDown = new JButton("Down");
 		btDown.setBounds(177, 183, 74, 23);
 		this.contentPane.add(btDown);
-
+		btDown.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				Position currentGearPosition=(lbUUp.getText()!="")?Position.valueOf(lbUUp.getText()):Position.valueOf(lbUDown.getText());
+				ComputeSimulationState.computeSimulationState(Integer.parseInt(lbUAltitude.getText()), Integer.parseInt(lbUSpeed.getText()), Integer.parseInt(lbULandingTimeCountDown.getText()),
+						currentGearPosition, null,null);
+				ComputeSimulationState.setSelectedGearPosition(Position.Down);
+				lbUDown.setText(String.valueOf(ComputeSimulationState.getSelectedGearPosition()));
+				lbUUp.setText("");
+				setWarningLabels();
+			}
+		});
+		
 		lbUAirResistance = new JLabel("5 mph/sec");
 		lbUAirResistance.setBounds(378, 59, 63, 14);
 		this.contentPane.add(lbUAirResistance);

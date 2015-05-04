@@ -19,6 +19,8 @@ public class ComputeSimulationState {
 	private static boolean gearOverrideWarningOn; 
 	private static boolean gearNotDownAlarmOn;
 	private static boolean gearAirSpeedAlarmOn;
+	private static boolean gearUpCommand;
+	private static boolean silenceAlarms;
 	private static int pass=0;
 	private static int fail=0;
 	private static int i=1;
@@ -69,15 +71,21 @@ public class ComputeSimulationState {
 					inputs[1] = "Up";
 				gearPosition = Position.valueOf(inputs[1]);
 				altitude = Integer.parseInt(inputs[2]);
-				timeUntilLanding = Integer.parseInt(inputs[3]);
+				timeUntilLanding = Integer.parseInt(inputs[3]); 
 				ComputeSimulationState.computeSimulationState(altitude, speed, timeUntilLanding, gearPosition,null,null);
 				airBrakeWarningOn = ComputeSimulationState.isAirBrakeWarningOn(); 
 				gearOverrideWarningOn = ComputeSimulationState.isGearOverrideWarningOn();
 				gearNotDownAlarmOn = ComputeSimulationState.isGearNotDownAlarmOn();
 				gearAirSpeedAlarmOn = ComputeSimulationState.isGearAirSpeedAlarmOn();
-				System.out.println(""+gearNotDownAlarmOn+gearAirSpeedAlarmOn+airBrakeWarningOn+gearOverrideWarningOn);
+				gearUpCommand = ComputeSimulationState.isGearOverrideWarningOn();
+				if(ComputeSimulationState.gearAirSpeedAlarmOn || ComputeSimulationState.gearNotDownAlarmOn)
+					silenceAlarms = true;
+				else
+					silenceAlarms = false;
+			//	System.out.println(""+gearNotDownAlarmOn+gearAirSpeedAlarmOn+airBrakeWarningOn+gearOverrideWarningOn);
 				if(gearNotDownAlarmOn == Boolean.valueOf(inputs[4]) && gearAirSpeedAlarmOn == Boolean.valueOf(inputs[5]) && 
-						airBrakeWarningOn == Boolean.valueOf(inputs[6]) && gearOverrideWarningOn == Boolean.valueOf(inputs[7]))
+						airBrakeWarningOn == Boolean.valueOf(inputs[6]) && gearOverrideWarningOn == Boolean.valueOf(inputs[7])
+						&& gearUpCommand == Boolean.valueOf(inputs[8])&& silenceAlarms == Boolean.valueOf(inputs[9]))
 				{
 					pass++;
 					System.out.println("Test Case No: "+i+" passed.");

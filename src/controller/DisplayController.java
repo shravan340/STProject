@@ -2,6 +2,10 @@ package controller;
 import inputs.ComputeSimulationState;
 import inputs.Position;
 
+import java.awt.Color;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 import javax.swing.AbstractButton;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
@@ -11,15 +15,9 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.TitledBorder;
 
-import com.sun.corba.se.impl.encoding.CodeSetConversion.BTCConverter;
-
-import java.awt.EventQueue;
-import java.awt.Color;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
-@SuppressWarnings("serial")
 public class DisplayController extends JFrame {
+	
+	private static final long serialVersionUID = 1L;
 	private static int timeUntilLanding;
 	private static int speed;
 	private static int altitude;
@@ -29,85 +27,19 @@ public class DisplayController extends JFrame {
 	private static boolean gearNotDownAlarmStatus;
 	private static boolean gearAirSpeedAlarmStatus;
 	private static boolean silenceAlarmSetting;
-	 static JLabel lbUAltitude;
-	static JLabel lbUSpeed;
-	static JLabel lbUUp;
-	static JLabel lbUDown;
-	static JLabel lbUAirResistance;
-	static JLabel lbUAltitudeLoss;
-	static JLabel lbULandingTimeCountDown;
+	public static JLabel lbUAltitude;
+	public static JLabel lbUSpeed;
+	public static JLabel lbUUp;
+	public static JLabel lbUDown;
+	public static JLabel lbUAirResistance;
+	public static JLabel lbUAltitudeLoss;
+	public static JLabel lbULandingTimeCountDown;
 	public JPanel contentPane;
-	static JLabel lbLandingGearOverride;
-	static JLabel lbGearAirSpeed;
-	static JLabel lbGearNotDown;
-	static JLabel lbBrakingOverride;
-			
-	public void run(){
-		DisplayController frame = new DisplayController();
-		frame.setVisible(true); 
-		}
-	public static void main(String[] args) {
-		DisplayController frame = new DisplayController();
-		frame.setVisible(true);
-		int timeUntillLanding = Integer.parseInt(lbULandingTimeCountDown.getText());
-		int speedUntillLanding = Integer.parseInt(lbUSpeed.getText());
-	    int altitudeUntillLanding = Integer.parseInt(lbUAltitude.getText());
-		if((timeUntillLanding >= 0 && timeUntillLanding <= 250)&&(speedUntillLanding >= 0 && 
-				speedUntillLanding <= 500)&&(altitudeUntillLanding >=0 && altitudeUntillLanding <=5000)){	
-		while(true)
-			{
-			timeUntillLanding = Integer.parseInt(lbULandingTimeCountDown.getText())-1;
-			speedUntillLanding = Integer.parseInt(lbUSpeed.getText())-5;
-		    altitudeUntillLanding = Integer.parseInt(lbUAltitude.getText())-20;
+	public static JLabel lbLandingGearOverride;
+	public static JLabel lbGearAirSpeed;
+	public static JLabel lbGearNotDown;
+	public static JLabel lbBrakingOverride;
 
-		    if((timeUntillLanding > 0 && (speedUntillLanding <0 ||altitudeUntillLanding <0 )) || (timeUntillLanding <= 0 && (speedUntillLanding >=5 ||altitudeUntillLanding >=20 || ComputeSimulationState.isGearNotDownAlarmOn() == true )) )
-		      {
-		    	    lbULandingTimeCountDown.setText("Failed");
-					lbULandingTimeCountDown.setForeground(Color.RED);
-					break;
-		      }
-		    if(timeUntillLanding <= 0 && speedUntillLanding <= 0 && altitudeUntillLanding <= 0 )
-			{
-				lbULandingTimeCountDown.setText("Landed");
-				lbUSpeed.setText("0");
-				lbUAltitude.setText("0");
-				lbULandingTimeCountDown.setForeground(Color.GREEN);
-				break;	
-			}
-			else
-		      {
-			  lbULandingTimeCountDown.setText(String.valueOf(timeUntillLanding));
-		      lbUSpeed.setText(String.valueOf(speedUntillLanding));
-		      lbUAltitude.setText(String.valueOf(altitudeUntillLanding));
-		      Position currentGearPosition=(lbUUp.getText()!="")?Position.valueOf(lbUUp.getText()):Position.valueOf(lbUDown.getText());		      
-		      ComputeSimulationState.computeSimulationState(altitudeUntillLanding, speedUntillLanding, timeUntillLanding, currentGearPosition, null, null);
-
-		      frame.setWarningLabels();
-		      }
-			
-		  	if (ComputeSimulationState.isGearOverrideWarningOn())
-		  	{
-		  		ComputeSimulationState.setGearPosition(Position.Up);
-		  		lbUUp.setText(String.valueOf(ComputeSimulationState.getGearPosition()));
-		  		lbUDown.setText(String.valueOf(""));
-		  	}
-			if (ComputeSimulationState.isAirBrakeWarningOn())
-			{
-				speedUntillLanding = speedUntillLanding - 10;
-				lbUSpeed.setText(String.valueOf(speedUntillLanding));
-				ComputeSimulationState.setSpeed(speedUntillLanding);
-			}     
-		try {
-			Thread.sleep(1000);
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-			}
-		}
-		}
-		else
-			System.out.println("Please check the values of initialization of Speed [0:500], Altitude [0:5000] and TimeUntillLanding [0:250] in aircraft landing sequence");
-	}
-	
 	public DisplayController() {
 		setTitle("Pilot Display Scenario:");
 		setDefaultCloseOperation(3);
@@ -126,12 +58,12 @@ public class DisplayController extends JFrame {
 		lbLandingGear.setHorizontalAlignment(0);
 		lbLandingGear.setBounds(25, 170, 89, 14);
 		this.contentPane.add(lbLandingGear);
-		
+
 		JLabel lbSpeed = new JLabel("Speed");
 		lbSpeed.setHorizontalAlignment(0);
 		lbSpeed.setBounds(25, 59, 63, 14);
 		this.contentPane.add(lbSpeed);
-		
+
 		JLabel lbAirResistance = new JLabel("Air Resistance");
 		lbAirResistance.setBounds(270, 59, 91, 14);
 		this.contentPane.add(lbAirResistance);
@@ -143,27 +75,27 @@ public class DisplayController extends JFrame {
 		JLabel lbLandingTime = new JLabel("Landing Time");
 		lbLandingTime.setBounds(270, 163, 91, 14);
 		this.contentPane.add(lbLandingTime);
-		
+
 		lbUSpeed = new JLabel("700");
 		lbUSpeed.setBounds(120, 59, 58, 14);
 		this.contentPane.add(lbUSpeed);
 
-	    lbUAltitude = new JLabel("2000");                                    
+		lbUAltitude = new JLabel("2000");                                    
 		lbUAltitude.setBounds(120, 116, 58, 14);
 		this.contentPane.add(lbUAltitude);
 
 		lbULandingTimeCountDown = new JLabel("140");
 		lbULandingTimeCountDown.setBounds(378, 170, 63, 14);
 		this.contentPane.add(lbULandingTimeCountDown);
-		
+
 		lbUUp = new JLabel("");
 		lbUUp.setBounds(120, 156, 58, 14);
 		this.contentPane.add(lbUUp);
-		
+
 		lbUDown = new JLabel("Down");
 		lbUDown.setBounds(120, 187, 58, 14);
 		this.contentPane.add(lbUDown);
-		
+
 		JButton btIncreaseSpeed = new JButton("+");
 		btIncreaseSpeed.setBounds(188, 36, 51, 23);
 		this.contentPane.add(btIncreaseSpeed);
@@ -234,7 +166,7 @@ public class DisplayController extends JFrame {
 				setWarningLabels();
 			}
 		});
-		
+
 		JButton btDown = new JButton("Down");
 		btDown.setBounds(177, 183, 74, 23);
 		this.contentPane.add(btDown);
@@ -250,7 +182,7 @@ public class DisplayController extends JFrame {
 				setWarningLabels();
 			}
 		});
-		
+
 		lbUAirResistance = new JLabel("5 mph/sec");
 		lbUAirResistance.setBounds(378, 59, 63, 14);
 		this.contentPane.add(lbUAirResistance);
@@ -262,8 +194,8 @@ public class DisplayController extends JFrame {
 		lbLandingGearOverride = new JLabel("Landing Gear Override");
 		lbLandingGearOverride.setBounds(10, 286, 132, 13);
 		this.contentPane.add(lbLandingGearOverride);
-		
-	    lbBrakingOverride = new JLabel("Braking Override");
+
+		lbBrakingOverride = new JLabel("Braking Override");
 		lbBrakingOverride.setBounds(142, 285, 97, 14);
 		this.contentPane.add(lbBrakingOverride);
 
@@ -282,18 +214,18 @@ public class DisplayController extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {	
 				AbstractButton abstractButton = (AbstractButton) e.getSource();
-		        boolean selected = abstractButton.getModel().isSelected();
-		        if(selected)
+				boolean selected = abstractButton.getModel().isSelected();
+				if(selected)
 				{
-		        	setWarningLabels();
-		        	if(lbGearNotDown.getForeground() == Color.RED)
-		        	{
-		        		lbGearNotDown.setForeground(Color.YELLOW);
-		        	}
-		        	if(lbGearNotDown.getForeground() == Color.RED)
-		        	{
-		        		lbGearNotDown.setForeground(Color.YELLOW);
-		        	}
+					setWarningLabels();
+					if(lbGearNotDown.getForeground() == Color.RED)
+					{
+						lbGearNotDown.setForeground(Color.YELLOW);
+					}
+					if(lbGearNotDown.getForeground() == Color.RED)
+					{
+						lbGearNotDown.setForeground(Color.YELLOW);
+					}
 				}
 			}
 		});
@@ -317,7 +249,72 @@ public class DisplayController extends JFrame {
 		panel_2.setBounds(4, 11, 464, 209);
 		this.contentPane.add(panel_2);
 	}
-	
+
+	public static void main(String[] args) {
+		DisplayController frame = new DisplayController();
+		frame.setVisible(true);
+		int timeUntillLanding = Integer.parseInt(lbULandingTimeCountDown.getText());
+		int currentSpeed = Integer.parseInt(lbUSpeed.getText());
+		int currentAltitude = Integer.parseInt(lbUAltitude.getText());
+		if((timeUntillLanding >= 0 && timeUntillLanding <= 250)&&(currentSpeed >= 0 && 
+				currentSpeed <= 500)&&(currentAltitude >=0 && currentAltitude <=5000)){	
+			while(true){
+
+				timeUntillLanding = Integer.parseInt(lbULandingTimeCountDown.getText())-1;
+				currentSpeed = Integer.parseInt(lbUSpeed.getText())-5;
+				currentAltitude = Integer.parseInt(lbUAltitude.getText())-20;
+
+				if((timeUntillLanding > 0 && (currentSpeed <0 ||currentAltitude <0 )) || (timeUntillLanding <= 0 
+						&& (currentSpeed >=5 ||currentAltitude >=20 || ComputeSimulationState.isGearNotDownAlarmOn() == true )) )
+				{
+					lbULandingTimeCountDown.setText("Failed");
+					lbULandingTimeCountDown.setForeground(Color.RED);
+					break;
+				}
+				if(timeUntillLanding <= 0 && currentSpeed <= 0 && currentAltitude <= 0 )
+				{
+					lbULandingTimeCountDown.setText("Landed");
+					lbUSpeed.setText("0");
+					lbUAltitude.setText("0");
+					lbULandingTimeCountDown.setForeground(Color.GREEN);
+					break;	
+				}
+				else
+				{
+					lbULandingTimeCountDown.setText(String.valueOf(timeUntillLanding));
+					lbUSpeed.setText(String.valueOf(currentSpeed));
+					lbUAltitude.setText(String.valueOf(currentAltitude));
+					Position currentGearPosition=(lbUUp.getText()!="")?Position.valueOf(lbUUp.getText()):Position.valueOf(lbUDown.getText());		      
+					ComputeSimulationState.computeSimulationState(currentAltitude, currentSpeed, timeUntillLanding, currentGearPosition, null, null);
+
+					frame.setWarningLabels();
+				}
+
+				if (ComputeSimulationState.isGearOverrideWarningOn())
+				{
+					ComputeSimulationState.setGearPosition(Position.Up);
+					lbUUp.setText(String.valueOf(ComputeSimulationState.getGearPosition()));
+					lbUDown.setText(String.valueOf(""));
+				}
+				if (ComputeSimulationState.isAirBrakeWarningOn())
+				{
+					currentSpeed = currentSpeed - 10;
+					lbUSpeed.setText(String.valueOf(currentSpeed));
+					ComputeSimulationState.setSpeed(currentSpeed);
+				}     
+				try {
+					Thread.sleep(1000);
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		else
+			System.out.println("Please check the values of initialization of Speed [0:500], Altitude [0:5000] and TimeUntillLanding [0:250] in aircraft landing sequence");
+	}
+
+
+
 	public static int getTimeUntilLanding() {
 		return timeUntilLanding;
 	}
@@ -373,7 +370,12 @@ public class DisplayController extends JFrame {
 	public static void setSilenceAlarmSetting(boolean silenceAlarmSetting) {
 		DisplayController.silenceAlarmSetting = silenceAlarmSetting;
 	}
-	
+
+	public void run(){
+		DisplayController frame = new DisplayController();
+		frame.setVisible(true); 
+	}
+
 	public void setWarningLabels(){
 		if(ComputeSimulationState.isGearOverrideWarningOn())
 			DisplayController.lbLandingGearOverride.setForeground(Color.RED);

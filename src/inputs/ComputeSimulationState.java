@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+
 public class ComputeSimulationState {
 
 	private static int timeUntilLanding;
@@ -24,9 +25,8 @@ public class ComputeSimulationState {
 	private static int pass=0;
 	private static int fail=0;
 	private static int i=1;
-	
-	public static void computeSimulationState(int altitude,int speed,int timeUntilLanding,
-			Position currentGearPosition,String throttleCmd,String elevonCmd){
+
+	public static void computeSimulationState(int altitude,int speed,int timeUntilLanding,Position currentGearPosition,String throttleCmd,String elevonCmd){
 		if (throttleCmd == "+")
 			ComputeSimulationState.speed=speed+10;
 		else
@@ -50,8 +50,9 @@ public class ComputeSimulationState {
 		ComputeSimulationState.gearNotDownAlarmOn = (currentGearPosition == Position.Up) && ((timeUntilLanding <=120) || (ComputeSimulationState.altitude <1000));
 		ComputeSimulationState.gearAirSpeedAlarmOn = (currentGearPosition== Position.Down ) && (ComputeSimulationState.speed>300);
 		if (!gearOverrideWarningOn)
-		currentGearPosition = selectedGearPosition;
+			currentGearPosition = selectedGearPosition;
 	}
+
 	public static void main(String[] args) {
 		String csvFile = "1.csv";
 		BufferedReader br = null;
@@ -82,7 +83,6 @@ public class ComputeSimulationState {
 					silenceAlarms = true;
 				else
 					silenceAlarms = false;
-			//	System.out.println(""+gearNotDownAlarmOn+gearAirSpeedAlarmOn+airBrakeWarningOn+gearOverrideWarningOn);
 				if(gearNotDownAlarmOn == Boolean.valueOf(inputs[4]) && gearAirSpeedAlarmOn == Boolean.valueOf(inputs[5]) && 
 						airBrakeWarningOn == Boolean.valueOf(inputs[6]) && gearOverrideWarningOn == Boolean.valueOf(inputs[7])
 						&& gearUpCommand == Boolean.valueOf(inputs[8])&& silenceAlarms == Boolean.valueOf(inputs[9]))

@@ -47,7 +47,6 @@ public class DisplayController extends JFrame {
 		frame.setVisible(true); 
 		}
 	public static void main(String[] args) {
-	
 		DisplayController frame = new DisplayController();
 		frame.setVisible(true);
 		int timeUntillLanding = Integer.parseInt(lbULandingTimeCountDown.getText());

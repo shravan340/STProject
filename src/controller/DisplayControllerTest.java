@@ -53,7 +53,8 @@ public class DisplayControllerTest {
 				{"300","true","999","59"},
 				};
 	for (int i=0;i<8;i++){
-		      speed = Integer.parseInt(inputs[i][0]); 
+		System.out.println("Display Scenario:"+(i+1));
+			  speed = Integer.parseInt(inputs[i][0]); 
 		      altitude = Integer.parseInt(inputs[i][2]);
 		      timeUntilLanding = Integer.parseInt(inputs[i][3]);
 		      if(inputs[i][1].equals("true"))

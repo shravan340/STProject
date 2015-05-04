@@ -47,6 +47,7 @@ public class DisplayController extends JFrame {
 		frame.setVisible(true); 
 		}
 	public static void main(String[] args) {
+	
 		DisplayController frame = new DisplayController();
 		frame.setVisible(true);
 		int timeUntillLanding = Integer.parseInt(lbULandingTimeCountDown.getText());
@@ -105,7 +106,7 @@ public class DisplayController extends JFrame {
 		}
 		}
 		else
-			System.out.println("Please check the values of initialization of landing sequence");
+			System.out.println("Please check the values of initialization of Speed [0:500], Altitude [0:5000] and TimeUntillLanding [0:250] in aircraft landing sequence");
 	}
 	
 	public DisplayController() {

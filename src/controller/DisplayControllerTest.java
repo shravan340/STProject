@@ -22,11 +22,6 @@ public class DisplayControllerTest {
 	private static int speed;
 	private static int altitude;
 	private static Position gearPosition;
-	private static boolean gearOverrideWarningStatus;
-	private static boolean airBrakeWarningStatus;
-	private static boolean gearNotDownAlarmStatus;
-	private static boolean gearAirSpeedAlarmStatus;
-	private static boolean silenceAlarmSetting;
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
 	}
@@ -67,16 +62,12 @@ public class DisplayControllerTest {
 					inputs[i][1] = "Up";
 		      gearPosition = Position.valueOf(inputs[i][1]);
 		      ComputeSimulationState.setAltitude(altitude);
-				//ComputeSimulationState.setElevonCmd(elevonCmd);
-				ComputeSimulationState.setGearPosition(gearPosition);
-				//computeSimulationState.setPilot(pilot);
-				ComputeSimulationState.setSpeed(speed);
-				//ComputeSimulationState.setThrottleCmd(throttleCmd);
-				ComputeSimulationState.setTimeUntilLanding(timeUntilLanding);
-				ComputeSimulationState.computeSimulationState(altitude, speed, timeUntilLanding, gearPosition, null, null);		      
+			  ComputeSimulationState.setGearPosition(gearPosition);
+			  ComputeSimulationState.setSpeed(speed);
+			  ComputeSimulationState.setTimeUntilLanding(timeUntilLanding);
+			  ComputeSimulationState.computeSimulationState(altitude, speed, timeUntilLanding, gearPosition, null, null);		      
 		        DisplayController.lbUAltitude.setText(String.valueOf(ComputeSimulationState.getAltitude()));
 				DisplayController.lbUSpeed.setText(String.valueOf(ComputeSimulationState.getSpeed()));
-				System.out.println(""+ComputeSimulationState.getGearPosition());
 				if(String.valueOf(ComputeSimulationState.getGearPosition()).equals("Up"))
 					{
 					DisplayController.lbUDown.setText("");	
@@ -87,8 +78,6 @@ public class DisplayControllerTest {
 					DisplayController.lbUUp.setText("");
 					DisplayController.lbUDown.setText(String.valueOf(ComputeSimulationState.getGearPosition()));
 				}
-//				}Simulator.lbUAirResistance.setText(String.valueOf(DisplayController.getAltitude()));
-//				Simulator.lbUAltitudeLoss.setText(String.valueOf(DisplayController.getAltitude()));
 				DisplayController.lbULandingTimeCountDown.setText(String.valueOf(ComputeSimulationState.getTimeUntilLanding()));
 				ComputeSimulationState.computeSimulationState(altitude, speed, timeUntilLanding, gearPosition, null, null);
 				pilot.setWarningLabels();

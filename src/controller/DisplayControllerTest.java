@@ -43,6 +43,15 @@ public class DisplayControllerTest {
 				{"301","true","999","59"},
 				{"400","true","999","120"},
 				{"300","true","999","59"},
+			/**	{"249","false","1500","59"},
+				{"401","false","1500","59"},
+				{"401","true",	"1500",	"59"},
+				{"401","true",	"1500",	"121"},
+				{"301",	"true",	"1500",	"59"},
+				{"301",	"true",	"1500",	"121"},
+				{"250","true",	"1500",	"59"},
+				{"415",	"false","1025",	"130"},
+**/
 		};
 
 		for (int i=0;i<8;i++){
@@ -76,7 +85,7 @@ public class DisplayControllerTest {
 			ComputeSimulationState.computeSimulationState(altitude, speed, timeUntilLanding, gearPosition, null, null);
 			pilot.setWarningLabels();
 			try {
-				Thread.sleep(5000);
+				Thread.sleep(10000);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}

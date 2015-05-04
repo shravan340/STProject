@@ -26,7 +26,8 @@ public class ComputeSimulationState {
 	private static int fail=0;
 	private static int i=1;
 
-	public static void computeSimulationState(int altitude,int speed,int timeUntilLanding,Position currentGearPosition,String throttleCmd,String elevonCmd){
+	public static void computeSimulationState(int altitude,int speed,int timeUntilLanding,Position currentGearPosition,
+			String throttleCmd,String elevonCmd){
 		if (throttleCmd == "+")
 			ComputeSimulationState.speed=speed+10;
 		else
@@ -53,7 +54,7 @@ public class ComputeSimulationState {
 			currentGearPosition = selectedGearPosition;
 	}
 
-	public static void main(String[] args) {
+/**	public static void main(String[] args) {
 		String csvFile = "1.csv";
 		BufferedReader br = null;
 		String line = "";
@@ -113,6 +114,7 @@ public class ComputeSimulationState {
 			}
 		}
 	}
+	**/
 	public static int getTimeUntilLanding() {
 		return timeUntilLanding;
 	}

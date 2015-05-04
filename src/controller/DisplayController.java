@@ -18,15 +18,6 @@ import javax.swing.border.TitledBorder;
 public class DisplayController extends JFrame {
 	
 	private static final long serialVersionUID = 1L;
-	private static int timeUntilLanding;
-	private static int speed;
-	private static int altitude;
-	private static Position gearPosition;
-	private static boolean gearOverrideWarningStatus;
-	private static boolean airBrakeWarningStatus;
-	private static boolean gearNotDownAlarmStatus;
-	private static boolean gearAirSpeedAlarmStatus;
-	private static boolean silenceAlarmSetting;
 	public static JLabel lbUAltitude;
 	public static JLabel lbUSpeed;
 	public static JLabel lbUUp;
@@ -76,7 +67,7 @@ public class DisplayController extends JFrame {
 		lbLandingTime.setBounds(270, 163, 91, 14);
 		this.contentPane.add(lbLandingTime);
 
-		lbUSpeed = new JLabel("700");
+		lbUSpeed = new JLabel("400");
 		lbUSpeed.setBounds(120, 59, 58, 14);
 		this.contentPane.add(lbUSpeed);
 
@@ -249,7 +240,7 @@ public class DisplayController extends JFrame {
 		panel_2.setBounds(4, 11, 464, 209);
 		this.contentPane.add(panel_2);
 	}
-
+/**
 	public static void main(String[] args) {
 		DisplayController frame = new DisplayController();
 		frame.setVisible(true);
@@ -312,65 +303,7 @@ public class DisplayController extends JFrame {
 		else
 			System.out.println("Please check the values of initialization of Speed [0:500], Altitude [0:5000] and TimeUntillLanding [0:250] in aircraft landing sequence");
 	}
-
-
-
-	public static int getTimeUntilLanding() {
-		return timeUntilLanding;
-	}
-	public static void setTimeUntilLanding(int timeUntilLanding) {
-		DisplayController.timeUntilLanding = timeUntilLanding;
-	}
-	public static int getSpeed() {
-		return speed;
-	}
-	public static void setSpeed(int speed) {
-		DisplayController.speed = speed;
-	}
-	public static int getAltitude() {
-		return altitude;
-	}
-	public static void setAltitude(int altitude) {
-		DisplayController.altitude = altitude;
-	}
-	public static Position getGearPosition() {
-		return gearPosition;
-	}
-	public static void setGearPosition(Position gearPosition) {
-		DisplayController.gearPosition = gearPosition;
-	}
-	public static boolean isGearOverrideWarningStatus() {
-		return gearOverrideWarningStatus;
-	}
-	public static void setGearOverrideWarningStatus(
-			boolean gearOverrideWarningStatus) {
-		DisplayController.gearOverrideWarningStatus = gearOverrideWarningStatus;
-	}
-	public static boolean isAirBrakeWarningStatus() {
-		return airBrakeWarningStatus;
-	}
-	public static void setAirBrakeWarningStatus(boolean airBrakeWarningStatus) {
-		DisplayController.airBrakeWarningStatus = airBrakeWarningStatus;
-	}
-	public static boolean isGearNotDownAlarmStatus() {
-		return gearNotDownAlarmStatus;
-	}
-	public static void setGearNotDownAlarmStatus(boolean gearNotDownAlarmStatus) {
-		DisplayController.gearNotDownAlarmStatus = gearNotDownAlarmStatus;
-	}
-	public static boolean isGearAirSpeedAlarmStatus() {
-		return gearAirSpeedAlarmStatus;
-	}
-	public static void setGearAirSpeedAlarmStatus(boolean gearAirSpeedAlarmStatus) {
-		DisplayController.gearAirSpeedAlarmStatus = gearAirSpeedAlarmStatus;
-	}
-	public static boolean isSilenceAlarmSetting() {
-		return silenceAlarmSetting;
-	}
-	public static void setSilenceAlarmSetting(boolean silenceAlarmSetting) {
-		DisplayController.silenceAlarmSetting = silenceAlarmSetting;
-	}
-
+**/
 	public void run(){
 		DisplayController frame = new DisplayController();
 		frame.setVisible(true); 

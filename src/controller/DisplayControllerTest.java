@@ -35,15 +35,15 @@ public class DisplayControllerTest {
 		DisplayController pilot = new DisplayController();
 		pilot.run();
 		String[][] inputs = new String[][]{
-				{"401","true","1000","59"},
+			/**	{"401","true","1000","59"},
 				{"401","false","1000","59"},
 				{"401","true","999","121"},
 				{"401","false","1000","120"},
 				{"401","false","1000","121"},
 				{"301","true","999","59"},
 				{"400","true","999","120"},
-				{"300","true","999","59"},
-			/**	{"249","false","1500","59"},
+				{"300","true","999","59"}, **/
+				{"249","false","1500","59"},
 				{"401","false","1500","59"},
 				{"401","true",	"1500",	"59"},
 				{"401","true",	"1500",	"121"},
@@ -51,7 +51,7 @@ public class DisplayControllerTest {
 				{"301",	"true",	"1500",	"121"},
 				{"250","true",	"1500",	"59"},
 				{"415",	"false","1025",	"130"},
-**/
+
 		};
 
 		for (int i=0;i<8;i++){
@@ -85,7 +85,7 @@ public class DisplayControllerTest {
 			ComputeSimulationState.computeSimulationState(altitude, speed, timeUntilLanding, gearPosition, null, null);
 			pilot.setWarningLabels();
 			try {
-				Thread.sleep(10000);
+				Thread.sleep(5000);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}

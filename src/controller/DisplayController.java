@@ -30,7 +30,8 @@ public class DisplayController extends JFrame {
 	public static JLabel lbGearAirSpeed;
 	public static JLabel lbGearNotDown;
 	public static JLabel lbBrakingOverride;
-
+	public static JLabel lbTimeUnit;
+	
 	public DisplayController() {
 		setTitle("Pilot Display Scenario:");
 		setDefaultCloseOperation(3);
@@ -67,15 +68,27 @@ public class DisplayController extends JFrame {
 		lbLandingTime.setBounds(270, 163, 91, 14);
 		this.contentPane.add(lbLandingTime);
 
-		lbUSpeed = new JLabel("400");
+		JLabel lbSpeedUnit = new JLabel("mph");
+		lbSpeedUnit.setBounds(144, 59, 63, 14);
+		this.contentPane.add(lbSpeedUnit);
+		
+		JLabel lbAltitudeUnit = new JLabel("ft");
+		lbAltitudeUnit.setBounds(150, 116, 63, 14);
+		this.contentPane.add(lbAltitudeUnit);
+		
+		lbTimeUnit = new JLabel("sec");
+		lbTimeUnit.setBounds(399, 170, 63, 14);
+		this.contentPane.add(lbTimeUnit);
+
+		lbUSpeed = new JLabel("50");
 		lbUSpeed.setBounds(120, 59, 58, 14);
 		this.contentPane.add(lbUSpeed);
 
-		lbUAltitude = new JLabel("2000");                                    
+		lbUAltitude = new JLabel("200");                                    
 		lbUAltitude.setBounds(120, 116, 58, 14);
 		this.contentPane.add(lbUAltitude);
 
-		lbULandingTimeCountDown = new JLabel("140");
+		lbULandingTimeCountDown = new JLabel("10");
 		lbULandingTimeCountDown.setBounds(378, 170, 63, 14);
 		this.contentPane.add(lbULandingTimeCountDown);
 
@@ -260,6 +273,7 @@ public class DisplayController extends JFrame {
 				{
 					lbULandingTimeCountDown.setText("Failed");
 					lbULandingTimeCountDown.setForeground(Color.RED);
+					lbTimeUnit.setText("");
 					break;
 				}
 				if(timeUntillLanding <= 0 && currentSpeed <= 0 && currentAltitude <= 0 )
@@ -267,6 +281,7 @@ public class DisplayController extends JFrame {
 					lbULandingTimeCountDown.setText("Landed");
 					lbUSpeed.setText("0");
 					lbUAltitude.setText("0");
+					lbTimeUnit.setText("");
 					lbULandingTimeCountDown.setForeground(Color.GREEN);
 					break;	
 				}

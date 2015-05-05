@@ -253,7 +253,7 @@ public class DisplayController extends JFrame {
 		panel_2.setBounds(4, 11, 464, 209);
 		this.contentPane.add(panel_2);
 	}
-/**
+
 	public static void main(String[] args) {
 		DisplayController frame = new DisplayController();
 		frame.setVisible(true);
@@ -318,7 +318,7 @@ public class DisplayController extends JFrame {
 		else
 			System.out.println("Please check the values of initialization of Speed [0:500], Altitude [0:5000] and TimeUntillLanding [0:250] in aircraft landing sequence");
 	}
-**/
+
 	public void run(){
 		DisplayController frame = new DisplayController();
 		frame.setVisible(true); 
